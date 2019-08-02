@@ -1130,6 +1130,31 @@ EXTERN float StellarWindSpeed;
 EXTERN float StellarWindTemperature;
 EXTERN FLOAT StellarWindCenterPosition[3];
 
+/*Add a few global parameters by Miao - these are mostly used in ExternalGravity and TimeAction, but should be renamed to make that clearer */
+EXTERN float SingleSNRadius_pc;
+EXTERN float SNScaleHeight_pc;
+EXTERN float MassDensityForExternalGravity;
+EXTERN float ExternalGravityScaleHeight_pc;
+EXTERN int   SNThermalFeedback;
+EXTERN float SNEnergyCRFraction;
+EXTERN float CREnergyDensityFloor;
+
+EXTERN float Rvir_MW_kpc;
+EXTERN float NFW_Concentration_Miao;
+EXTERN float R_PatchDisplacement_kpc;
+EXTERN float StellarMassFraction;
+EXTERN int   g_DM_MW;
+
+EXTERN int   SNDistribution_Miao;
+EXTERN float SNIaFraction;
+EXTERN float SNIILowFraction;
+EXTERN float SNIaScaleHeight_pc;
+EXTERN float SNIILowScaleHeight_pc;
+EXTERN float SNIIHighScaleHeight_pc;
+
+EXTERN int   UseSNColour;
+/* end parameters added by Miao */
+
 EXTERN int MHDCTSlopeLimiter;
 EXTERN int MHDCTDualEnergyMethod;
 EXTERN int MHDCTPowellSource;

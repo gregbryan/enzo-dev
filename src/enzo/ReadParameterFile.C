@@ -1292,6 +1292,30 @@ int ReadParameterFile(FILE *fptr, TopGridData &MetaData, float *Initialdt)
     ret += sscanf(line, "StellarWindCenterPosition = %"PSYM" %"PSYM" %"PSYM,
       StellarWindCenterPosition, StellarWindCenterPosition+1, StellarWindCenterPosition+2);
 
+//added a few by Miao - these are mostly used in ExternalGravity and TimeAction, but should be renamed to make that clearer
+    ret +=sscanf(line,"SingleSNRadius_pc = %"FSYM,&SingleSNRadius_pc);
+    ret +=sscanf(line,"SNScaleHeight_pc = %"FSYM,&SNScaleHeight_pc);
+    ret +=sscanf(line,"MassDensityForExternalGravity = %"FSYM,&MassDensityForExternalGravity);
+    ret +=sscanf(line,"ExternalGravityScaleHeight_pc = %"FSYM,&ExternalGravityScaleHeight_pc);
+    ret +=sscanf(line,"SNThermalFeedback = %"ISYM,&SNThermalFeedback);
+    ret +=sscanf(line,"SNEnergyCRFraction  = %"FSYM,&SNEnergyCRFraction );
+    ret +=sscanf(line,"CREnergyDensityFloor  = %"FSYM,&CREnergyDensityFloor );
+    ret +=sscanf(line,"g_DM_MW = %"ISYM,&g_DM_MW);
+    ret +=sscanf(line,"Rvir_MW_kpc  = %"FSYM,&Rvir_MW_kpc );
+    ret +=sscanf(line,"NFW_Concentration_Miao  = %"FSYM,&NFW_Concentration_Miao );
+    ret +=sscanf(line,"R_PatchDisplacement_kpc  = %"FSYM,&R_PatchDisplacement_kpc );
+    ret +=sscanf(line,"StellarMassFraction  = %"FSYM,&StellarMassFraction );
+
+    ret +=sscanf(line,"SNDistribution_Miao = %"ISYM,&SNDistribution_Miao);
+    ret +=sscanf(line,"SNIaFraction = %"FSYM,&SNIaFraction);
+    ret +=sscanf(line,"SNIILowFraction = %"FSYM,&SNIILowFraction);
+    ret +=sscanf(line,"SNIaScaleHeight_pc = %"FSYM,&SNIaScaleHeight_pc);
+    ret +=sscanf(line,"SNIILowScaleHeight_pc = %"FSYM,&SNIILowScaleHeight_pc);
+    ret +=sscanf(line,"SNIIHighScaleHeight_pc = %"FSYM,&SNIIHighScaleHeight_pc);
+
+    ret +=sscanf(line,"UseSNColour = %"ISYM,&UseSNColour);
+//end add by Miao 
+    
     ret += sscanf(line, "ExtraOutputs = %"ISYM" %"ISYM" %"ISYM" %"ISYM" %"ISYM" %"ISYM" %"ISYM" %"ISYM" %"ISYM" %"ISYM"", ExtraOutputs,
 		  ExtraOutputs +1,ExtraOutputs +2,ExtraOutputs +3,
 		  ExtraOutputs +4,ExtraOutputs +5,ExtraOutputs +6,

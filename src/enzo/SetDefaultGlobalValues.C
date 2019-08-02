@@ -678,6 +678,32 @@ int SetDefaultGlobalValues(TopGridData &MetaData)
   StellarWindRadius                = 0.01;  // in code unit
   StellarWindTemperature           = 100.0;  // in K
 
+  // Miao's global values  - these are mostly used in ExternalGravity and TimeAction, but should be renamed to make that clearer;
+  SingleSNRadius_pc     = 15.;
+  SNScaleHeight_pc      = 100.;
+  MassDensityForExternalGravity   = 35.; // Msun/pc^2
+  ExternalGravityScaleHeight_pc  = 300.;  
+  SNThermalFeedback      =1 ;     // thermal feedback: on
+  SNEnergyCRFraction    =  0.1;   // fraction of SN that is in CR
+  CREnergyDensityFloor    =  1e-12;   // CREnergyDensityFloor, in code unit
+
+  g_DM_MW  = 1; //0: no DM potential
+  Rvir_MW_kpc = 200.;  
+  NFW_Concentration_Miao = 12.;
+  R_PatchDisplacement_kpc  = 8.; // solar neighbourhood
+  StellarMassFraction      = 0.78; //solar neighbourhood. stars:35Msun/pc^2; gas:10Msun/pc^2
+
+  SNDistribution_Miao   =0 ;      // to use the following parameters or not
+  SNIaFraction         =0.15;    // Ferriever 01 review
+  SNIILowFraction      = 0.6;   // uncertain,>~0.5 Narayan & Ostriker 90;
+  SNIaScaleHeight_pc   = 325.; //see refs in Ferriere 01 review
+  SNIILowScaleHeight_pc  = 120.; //Narayan & Ostriker 90, assuming gaussian distribution;
+  SNIIHighScaleHeight_pc  =360.; //Narayan & Ostriker 90, assuming gaussian distribution;
+
+  UseSNColour           =0; // 1 is to use colour tracer of SN
+
+  // end of Miao's global values.
+  
   PythonTopGridSkip                = 0;
   PythonSubcycleSkip               = 1;
   PythonReloadScript               = FALSE;

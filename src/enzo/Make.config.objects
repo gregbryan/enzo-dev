@@ -273,6 +273,7 @@ OBJS_CONFIG_LIB = \
 	GadgetIonizeParamsTable.o \
 	GadgetMakeCoolingTable.o \
 	GadgetReadIonizeParams.o \
+	GalaxyDiskPatchInitialize.o \
 	GalaxySimulationInitialize.o \
 	GenerateGridArray.o \
 	GetNodeFreeMemory.o \
@@ -357,6 +358,7 @@ OBJS_CONFIG_LIB = \
     	Grid_ApplyGalaxyParticleFeedback.o \
     	Grid_ApplyGalaxyParticleGravity.o \
     	Grid_ApplySmartStarParticleFeedback.o \
+	Grid_ApplySNExplosion_Miao.o \
 	Grid_ApplyTimeAction.o \
     	Grid_AveragedVelocityAtCell.o \
 	Grid_CalculateAngularMomentum.o \
@@ -509,6 +511,7 @@ OBJS_CONFIG_LIB = \
 	Grid_GadgetCoolingTime.o \
 	Grid_Gadgetfindabundancesandrates.o \
 	Grid_GadgetEquilibriumCooling.o \
+	Grid_GalaxyDiskPatchInitializeGrid.o \
 	Grid_GalaxySimulationInitializeGrid.o \
     	Grid_GetActiveParticlePosition.o \
         Grid_GetEnclosedMass.o \

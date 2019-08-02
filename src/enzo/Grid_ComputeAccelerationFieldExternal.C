@@ -650,6 +650,100 @@ int grid::ComputeAccelerationFieldExternal()
     
   } // end if (ExternalGravity == 1)
 
+  /* Miao: add an external gravitational field in z-direction for GalaxyDiskPatch: */
+
+  else if (ExternalGravity == 2){
+
+    float Accel_inf, z_d;
+    Accel_inf = MassDensityForExternalGravity/30.* 2.63e-9/AccelUnits; // acceleration at infinite, SLICC, Walch 15, 2.63e-9 cm/s^2 for 30Msun/pc^2
+    z_d = ExternalGravityScaleHeight_pc *pc_cm/LengthUnits;//SLICC, Walch 15, 30Msun/pc^2
+
+    int size = 1;
+    for (dim = 0; dim < GridRank; dim++)
+       size *= GridDimension[dim];
+
+    int index,jndex,kndex;
+    FLOAT xpos,ypos,zpos;
+    FLOAT DomainWidth[3];
+    for (dim = 0; dim < GridRank; dim++){
+      DomainWidth[dim] = DomainRightEdge[dim] - DomainLeftEdge[dim];
+    }
+
+    for (i=0;i<size;i++){
+      index  = i % GridDimension[0];
+      jndex  = (i-index) % (GridDimension[0]*GridDimension[1]);
+      kndex  = (i-index - jndex)/(GridDimension[0]*GridDimension[1]);
+      jndex /= GridDimension[0];
+
+      xpos  = *(CellLeftEdge[0] + index) + 0.5*(*(CellWidth[0] + index));
+      ypos  = *(CellLeftEdge[1] + jndex) + 0.5*(*(CellWidth[1] + jndex));
+      zpos  = *(CellLeftEdge[2] + kndex) + 0.5*(*(CellWidth[2] + kndex));
+
+      AccelerationField[0][i] = 0.0;
+      AccelerationField[1][i] = 0.0;
+      AccelerationField[2][i] = - Accel_inf*tanh(zpos/z_d);
+
+    }
+
+  }// end if  (ExternalGravity == 2)
+
+  /* GalaxyDiskPatch potential. */
+
+  else if (ExternalGravity == 3){
+    float Accel_inf_disk, z_d;
+    Accel_inf_disk = MassDensityForExternalGravity/30.* 2.63e-9/AccelUnits /StellarMassFraction; // acceleration at infinity for an isothermal self-gravitating disk, SLICC, Walch 15, 2.63e-9 cm/s^2 for 30Msun/pc^2; g_inf= 2*pi*G*Sigma_star /f_star
+    z_d = ExternalGravityScaleHeight_pc *pc_cm/LengthUnits;
+
+    int size = 1;
+    for (dim = 0; dim < GridRank; dim++)
+       size *= GridDimension[dim];
+
+    int index,jndex,kndex;
+    FLOAT xpos,ypos,zpos;
+    FLOAT DomainWidth[3];
+    for (dim = 0; dim < GridRank; dim++){
+      DomainWidth[dim] = DomainRightEdge[dim] - DomainLeftEdge[dim];
+    }
+
+    for (i=0;i<size;i++){
+      index  = i % GridDimension[0];
+      jndex  = (i-index) % (GridDimension[0]*GridDimension[1]);
+      kndex  = (i-index - jndex)/(GridDimension[0]*GridDimension[1]);
+      jndex /= GridDimension[0];
+
+      xpos  = *(CellLeftEdge[0] + index) + 0.5*(*(CellWidth[0] + index));
+      ypos  = *(CellLeftEdge[1] + jndex) + 0.5*(*(CellWidth[1] + jndex));
+      zpos  = *(CellLeftEdge[2] + kndex) + 0.5*(*(CellWidth[2] + kndex));
+
+      if (g_DM_MW== 1) {
+         float Accel_DM,rho0,R_s,rho_ave_DM_now,m_DM_coeff, m_DM,R0,R_s_codeunit,c,r;
+         c = NFW_Concentration_Miao;
+         R0 = R_PatchDisplacement_kpc* kpc_cm/LengthUnits;
+         r = POW( POW(R0,2)+POW(zpos,2) ,0.5 );
+         R_s = Rvir_MW_kpc/c * kpc_cm; //cm
+         rho_ave_DM_now = 2.101e-30; //g
+         rho0 = 200 * rho_ave_DM_now * c *pow(1+c,2); //g
+
+         m_DM_coeff = 4*pi *rho0 * pow(R_s,3);
+         R_s_codeunit = R_s/LengthUnits;
+         m_DM = m_DM_coeff* (log(1 + r/R_s_codeunit) - r/(r+R_s_codeunit) );
+         Accel_DM = GravConst * m_DM *zpos/pow(r,3) /pow(LengthUnits,2)  /AccelUnits;
+
+         AccelerationField[0][i] = 0.0;
+         AccelerationField[1][i] = 0.0;
+         AccelerationField[2][i] = - Accel_inf_disk*tanh(zpos/z_d)- Accel_DM;
+        }
+      
+      else{
+
+	AccelerationField[0][i] = 0.0;
+	AccelerationField[1][i] = 0.0;
+	AccelerationField[2][i] = - Accel_inf_disk*tanh(zpos/z_d);
+
+      }
+    }// end for
+  }// end if  (ExternalGravity == 3)
+
   /* -----------------------------------------------------------------
      ExternalGravity > 9 : Acceleration from specified potential field.
 

@@ -1096,6 +1096,31 @@ int WriteParameterFile(FILE *fptr, TopGridData &MetaData, char *name = NULL)
   fprintf(fptr, "StellarWindCenterPosition   = ");
   WriteListOfFloats(fptr, MetaData.TopGridRank, StellarWindCenterPosition);
 
+//add a few by Miao - these are mostly used in ExternalGravity and TimeAction, but should be renamed to make that clearer
+    fprintf(fptr,"SingleSNRadius_pc = %"FSYM"\n",SingleSNRadius_pc);
+    fprintf(fptr,"SNScaleHeight_pc = %"FSYM"\n", SNScaleHeight_pc);
+    fprintf(fptr,"MassDensityForExternalGravity = %"FSYM"\n",MassDensityForExternalGravity);
+    fprintf(fptr,"ExternalGravityScaleHeight_pc = %"FSYM"\n",ExternalGravityScaleHeight_pc);
+    fprintf(fptr,"SNThermalFeedback= %"ISYM"\n",SNThermalFeedback);
+    fprintf(fptr,"SNEnergyCRFraction = %"FSYM"\n", SNEnergyCRFraction);
+    fprintf(fptr,"CREnergyDensityFloor = %"FSYM"\n", CREnergyDensityFloor);
+
+    fprintf(fptr,"g_DM_MW= %"ISYM"\n",g_DM_MW);
+    fprintf(fptr,"Rvir_MW_kpc = %"FSYM"\n",Rvir_MW_kpc );
+    fprintf(fptr,"NFW_Concentration_Miao = %"FSYM"\n", NFW_Concentration_Miao);
+    fprintf(fptr,"R_PatchDisplacement_kpc = %"FSYM"\n", R_PatchDisplacement_kpc);
+    fprintf(fptr,"StellarMassFraction = %"FSYM"\n", StellarMassFraction);
+
+    fprintf(fptr,"SNDistribution_Miao= %"ISYM"\n",SNDistribution_Miao);
+    fprintf(fptr,"SNIaFraction = %"FSYM"\n", SNIaFraction);
+    fprintf(fptr,"SNIILowFraction = %"FSYM"\n", SNIILowFraction);
+    fprintf(fptr,"SNIaScaleHeight_pc = %"FSYM"\n", SNIaScaleHeight_pc);
+    fprintf(fptr,"SNIILowScaleHeight_pc = %"FSYM"\n", SNIILowScaleHeight_pc);
+    fprintf(fptr,"SNIIHighScaleHeight_pc = %"FSYM"\n", SNIIHighScaleHeight_pc);
+
+    fprintf(fptr,"UseSNColour=%"ISYM"\n", UseSNColour);
+//end add by Miao
+  
   fprintf(fptr, "H2StarMakerEfficiency              = %"GSYM"\n", H2StarMakerEfficiency);
   fprintf(fptr, "H2StarMakerNumberDensityThreshold  = %"GSYM"\n", H2StarMakerNumberDensityThreshold);
   fprintf(fptr, "H2StarMakerMinimumMass             = %"GSYM"\n", H2StarMakerMinimumMass);

@@ -223,6 +223,8 @@ int MHDDecayingRandomFieldInitialize(FILE *fptr, FILE *Outfptr,
 			    HierarchyEntry &TopGrid, TopGridData &MetaData, int SetBaryonFields);
 int GalaxyDiskInitialize(FILE *fptr, FILE *Outfptr, 
 			 HierarchyEntry &TopGrid, TopGridData &MetaData);
+int GalaxyDiskPatchInitialize(FILE *fptr, FILE *Outfptr,
+                         HierarchyEntry &TopGrid, TopGridData &MetaData, ExternalBoundary &Exterior);
 int AGNDiskInitialize(FILE *fptr, FILE *Outfptr, 
 		      HierarchyEntry &TopGrid, TopGridData &MetaData);
 int FreeExpansionInitialize(FILE *fptr, FILE *Outfptr, HierarchyEntry &TopGrid,
@@ -590,6 +592,9 @@ int InitializeNew(char *filename, HierarchyEntry &TopGrid,
   if (ProblemType == 90)
     ret = TestStarParticleInitialize(fptr, Outfptr, TopGrid, MetaData, 
 				     Initialdt);
+  // 95) Miao: GalaxyDisk Setup
+  if (ProblemType == 95)
+       ret = GalaxyDiskPatchInitialize(fptr,Outfptr,TopGrid,MetaData,Exterior);
   
   /* 101) 3D Collapse */
   if (ProblemType == 101) {

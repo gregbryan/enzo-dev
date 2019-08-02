@@ -1965,7 +1965,16 @@ int zEulerSweep(int j, int NumberOfSubgrids, fluxes *SubgridFluxes[],
   int SedovBlastInitializeGrid3D(char * fname);
 
   int SedovBlastInitializeGrid3DFixedR(float dr);
-
+  
+/* Initialize a grid for a patch of a disk galaxy */
+  
+  int GalaxyDiskPatchInitializeGrid(int GasDistributionType,
+				    float GasScaleHeight_pc,
+				    float MidplaneDensity,
+				    float MidplaneTotalEnergy,
+				    float MidplaneInternalEnergy,
+				    float MidplaneVelocity[],
+				    float UniformBField[]);
 
 /* Initialize a grid for RadiatingShock (Sedov+Cooling) Explosion */
 
@@ -2645,6 +2654,8 @@ int zEulerSweep(int j, int NumberOfSubgrids, fluxes *SubgridFluxes[],
 /* Apply a time-action to a grid. */
 
   int ApplyTimeAction(int Type, float Parameter);
+  
+  int ApplySNExplosion_Miao(FLOAT pos[3], float SN_radius);
 
 /* Routine to set the tracer particle velocities from the grid velocity. */
 
