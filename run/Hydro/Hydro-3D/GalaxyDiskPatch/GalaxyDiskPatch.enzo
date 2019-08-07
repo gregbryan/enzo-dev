@@ -1,0 +1,102 @@
+ProblemType               =  90       // Galaxy Disk Patch test problem
+Gamma                     =  1.6666667
+DensityUnits              = 1.67e-29  # m_H
+LengthUnits               = 1.543e+22 #5kpc
+TimeUnits                 = 3.156e+13   #1e6 yr
+
+TopGridRank               = 3
+TopGridDimensions         = 176 176 2512     # can only be even number
+DomainLeftEdge            = 0 0 -0.5
+DomainRightEdge            = 0.07 0.07 0.5
+LeftFaceBoundaryCondition  = 3 3 1
+RightFaceBoundaryCondition  = 3 3 1
+
+
+StaticHierarchy           = 0       // 0 is dynamic hierarchy, i.e. using AMR machinery
+MaximumRefinementLevel    = 2        // use 0 AMR levels
+
+StaticRefineRegionLevel[0] = 0
+StaticRefineRegionLeftEdge[0]     = 0 0 -0.2
+StaticRefineRegionRightEdge[0]     = 0.07 0.07 0.2
+
+StaticRefineRegionLevel[1] = 1
+StaticRefineRegionLeftEdge[1]     = 0 0 -0.1
+StaticRefineRegionRightEdge[1]     = 0.07 0.07 0.1
+
+
+StopTime                  = 300.0
+
+
+dtDataDump                = 0.2
+DataDumpName              = sb_
+
+HydroMethod               = 0       // PPM - 0; ZEUS - 2
+RiemannSolver             =5
+ReconstructionMethod      =1
+CourantSafetyNumber       = 0.5     // ppm - 0.8; zeus - 0.5
+DualEnergyFormalism       =1
+
+tiny_number               = 1.0e-15
+
+
+GalaxyDiskPatchRefineAtStart = 1
+GalaxyDiskPatchGasDistributionType = 20 # 30:slicc; 20: Miao
+GalaxyDiskPatchMidplaneDensity         = 0.822e5
+GalaxyDiskPatchTotalEnergy         = 8.63e-6 #6.91e-6: 8e3K
+GalaxyDiskPatchInternalEnergy         = 8.63e-6
+
+
+TestProblemUseMetallicityField   =1
+TestProblemInitialMetallicityFraction  = 0.0204
+
+
+RadiativeCooling        = 1
+RadiativeCoolingModel  =1
+MultiSpecies = 0
+PhotoelectricHeating =1
+PhotoelectricHeatingRate =  1.4e-26
+
+OutputTemperature       =1
+OutputCoolingTime       =1
+#
+#
+#
+TimeActionType[0]      = 2
+TimeActionTime[0]      = 0.001 # First time in code units
+TimeActionParameter[0] = 1.94e5 # recurrence time in years, 0.1258e6 is for (0.5kpc)^2 in x-y direction and 31.8 SN Myr^-1 kpc^-2
+
+
+GravitationalConstant   = 0.001393e-5  # 4*pi * density_unit* time_unit^2
+ExternalGravity         = 3 #3: Miao
+
+
+CRModel               =0
+CRgamma               = 1.3333333333
+CRDiffusion           = 0
+CRkappa              =1e27  #  Cosmic ray diffusion coefficient in CGS units (cm^2/s), Default: 0.0. For MW-like galaxies: 1E28
+CRCourantSafetyNumber   = 0.30 #  Multiplies CR
+
+
+SingleSNRadius_pc     = 12.0
+SNScaleHeight_pc      = 70.  # not used if SNDistribution_Miao   =1
+MassDensityForExternalGravity   = 35. # stellar mass surface density Msun/pc^2
+ExternalGravityScaleHeight_pc  = 300.
+SNThermalFeedback      =1 # thermal feedback: on
+SNEnergyCRFraction    =  0.0 # fraction
+
+g_DM_MW      =1
+Rvir_MW_kpc   = 200.
+NFW_Concentration_Miao   = 12
+R_PatchDisplacement_kpc  = 8.
+StellarMassFraction  =     0.78
+
+SNDistribution_Miao   =1       # to use the following parameters or not
+SNIaFraction         =0.1     # Ferriever 01 review
+SNIILowFraction      = 0.6   # uncertain,>~0.5 Narayan & Ostriker 90;
+SNIaScaleHeight_pc   = 325. #see refs in Ferriere 01 review
+SNIILowScaleHeight_pc  = 150. #
+SNIIHighScaleHeight_pc  = 150. #
+
+UseSNColour  = 1
+FluxCorrection =0
+
