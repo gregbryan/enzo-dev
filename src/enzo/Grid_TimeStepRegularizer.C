@@ -82,7 +82,7 @@ int grid::TimeStepRegularizer(double dtMinimum)
   }
 
   FLOAT dx = 1.0/CellWidth[0][0]/a;
-  double rho, vx, vy, vz, v2, eint, etot, cs, dt_cs, dt_vel, rho_new;
+  double rho, vx, vy, vz, v2, eint, etot, cs, dt_cs, dt_vel;
   double rho_max, vx_max, vy_max, vz_max, v2_max, eint_max, etot_max;
   double delta_rho, eint_new, vel_new, vel, vel_max;
   int dim, i, j, k, n, imax, ioffset;
@@ -162,10 +162,10 @@ int grid::TimeStepRegularizer(double dtMinimum)
 	  const double REGULARIZER_MAX_FACTOR = 0.5;
 	  
 	  if (delta_rho/rho_max > REGULARIZER_MAX_FACTOR || delta_rho == 0.0) {
-	    fprintf(stderr, "DT regularizer failure, rho = %g, rho_new = %g, delta_rho = %g, imax = %d\n", rho, rho_new, delta_rho, imax);
+	    fprintf(stderr, "DT regularizer failure, rho = %g, delta_rho = %g, imax = %d, dt_cs = %g, dt_vel = %g, eint_new = %g, eint_max = %g, vel_new = %g, vel_max = %g, eint = %g, vel = %g\n", rho, delta_rho, imax, dt_cs, dt_vel, eint_new, eint_max, vel_new, vel_max, eint, vel);
 	  } else {
 
-	    fprintf(stderr, "DT regularizer success, rho = %g, rho_new = %g, delta_rho = %g, imax = %d ratio = %g\n", rho, rho_new, delta_rho, imax, delta_rho/rho_max);
+	    fprintf(stderr, "DT regularizer success, rho = %g, delta_rho = %g, imax = %d ratio = %g\n", rho, delta_rho, imax, delta_rho/rho_max);
 
 	    /* Set conserved quantities for the two cells */
 
@@ -182,8 +182,8 @@ int grid::TimeStepRegularizer(double dtMinimum)
 	    
 	    /* Move mass from old (max) cell to current cell. */
 	    
-	    BaryonField[DensNum][n]      += (rho_new - rho);
-	    BaryonField[DensNum][n+imax] -= (rho_new - rho);
+	    BaryonField[DensNum][n]      += delta_rho;
+	    BaryonField[DensNum][n+imax] -= delta_rho;
 
 	    /* Revert to primitives. */
 
