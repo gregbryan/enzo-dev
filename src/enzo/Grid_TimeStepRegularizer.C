@@ -81,7 +81,7 @@ int grid::TimeStepRegularizer(double dtMinimum)
     exit(FAIL);
   }
 
-  FLOAT dx = 1.0/CellWidth[0][0]/a;
+  FLOAT dx = CellWidth[0][0]/a;
   double rho, vx, vy, vz, v2, eint, etot, cs, dt_cs, dt_vel;
   double rho_max, vx_max, vy_max, vz_max, v2_max, eint_max, etot_max;
   double delta_rho, eint_new, vel_new, vel, vel_max;
@@ -96,6 +96,7 @@ int grid::TimeStepRegularizer(double dtMinimum)
 	vy  = BaryonField[Vel2Num][n];
 	vz  = BaryonField[Vel3Num][n];
 	v2 = vx*vx + vy*vy + vz*vz;
+	vel = sqrt(v2);
 	
 	if (DualEnergyFormalism) {
 	  eint = BaryonField[GENum][n];
@@ -132,6 +133,7 @@ int grid::TimeStepRegularizer(double dtMinimum)
 	  vy_max  = BaryonField[Vel2Num][n+imax];
 	  vz_max  = BaryonField[Vel3Num][n+imax];
 	  v2_max = vx_max*vx_max + vy_max*vy_max + vz_max*vz_max;
+	  vel_max = sqrt(v2_max);
 	  if (DualEnergyFormalism) {
 	    eint_max = BaryonField[GENum][n+imax];
 	  }
